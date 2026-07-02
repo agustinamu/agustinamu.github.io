@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ekain · Herramientas</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #0b131c;
+        --ink-2: #101b27;
+        --brass: #d2a14c;
+        --brass-soft: #8a6f3d;
+        --paper: #ece5d3;
+        --paper-dim: #9a937f;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(ellipse at 50% -20%, rgba(210, 161, 76, 0.08), transparent 60%), var(--ink);
+        color: var(--paper);
+        font-family: 'IBM Plex Mono', monospace;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 4rem 1.5rem 3rem;
+      }
+      h1 {
+        margin: 0;
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 500;
+        font-size: 2.6rem;
+        letter-spacing: 0.02em;
+      }
+      h1 em {
+        font-style: italic;
+        font-weight: 300;
+        color: var(--brass);
+      }
+      .sub {
+        margin: 0.4rem 0 3rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: var(--paper-dim);
+      }
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: 34rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      a.tool {
+        display: block;
+        padding: 1.1rem 1.3rem;
+        background: var(--ink-2);
+        border: 1px solid var(--brass-soft);
+        color: var(--paper);
+        text-decoration: none;
+        transition: border-color 0.15s, background 0.15s;
+      }
+      a.tool:hover {
+        border-color: var(--brass);
+        background: rgba(210, 161, 76, 0.08);
+      }
+      a.tool .name {
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 1.25rem;
+        color: var(--brass);
+      }
+      a.tool .desc {
+        display: block;
+        margin-top: 0.35rem;
+        font-size: 0.74rem;
+        letter-spacing: 0.04em;
+        color: var(--paper-dim);
+      }
+      footer {
+        margin-top: auto;
+        padding-top: 3rem;
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--paper-dim);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ekain <em>·</em> Herramientas</h1>
+    <p class="sub">— ekain.amutxastegi.com —</p>
+    <ul>
+      <li>
+        <a class="tool" href="/flagmaps/">
+          <span class="name">Atlas de Banderas</span>
+          <span class="desc">Mapa interactivo: pinta países con su bandera y compara superficie, población y densidad.</span>
+        </a>
+      </li>
+      <!-- Nuevas herramientas: añadir un <li> como el de arriba. -->
+    </ul>
+    <footer>agustinamu</footer>
+  </body>
+</html>
