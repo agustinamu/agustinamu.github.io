@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ekain · Herramientas</title>
+    <title>Ekain · Juegos y utilidades</title>
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>"
@@ -91,11 +91,34 @@
         letter-spacing: 0.04em;
         color: var(--paper-dim);
       }
+      h2 {
+        margin: 2.2rem 0 0;
+        width: 100%;
+        max-width: 34rem;
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 400;
+        font-style: italic;
+        font-size: 1.05rem;
+        color: var(--brass-soft);
+      }
+      h2:first-of-type {
+        margin-top: 0;
+      }
     </style>
   </head>
   <body>
-    <h1>Ekain <em>·</em> Herramientas</h1>
+    <h1>Ekain <em>·</em> Juegos <em>y</em> utilidades</h1>
     <p class="sub">— ekain.amutxastegi.com —</p>
+    <h2>Juegos</h2>
+    <ul>
+      <li>
+        <a class="tool" href="/geojuegos/">
+          <span class="name">Geojuegos</span>
+          <span class="desc">Adivina países: por su silueta con pistas de distancia y dirección, y más juegos en camino.</span>
+        </a>
+      </li>
+    </ul>
+    <h2>Utilidades</h2>
     <ul>
       <li>
         <a class="tool" href="/flagmaps/">
@@ -103,7 +126,7 @@
           <span class="desc">Mapa interactivo: pinta países con su bandera y compara superficie, población y densidad.</span>
         </a>
       </li>
-      <!-- Nuevas herramientas: añadir un <li> como el de arriba. -->
+      <!-- Nuevas entradas: añadir un <li> como el de arriba en su sección. -->
     </ul>
   </body>
 </html>
