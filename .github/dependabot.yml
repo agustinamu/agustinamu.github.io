@@ -1,9 +1,0 @@
-version: 2
-updates:
-  # Este repo despliega por Pages clásico (sin package.json). Solo se vigilan
-  # las versiones de las GitHub Actions; queda inerte hasta que exista algún
-  # workflow en .github/workflows/.
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: weekly
