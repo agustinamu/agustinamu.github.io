@@ -236,7 +236,7 @@ Lo visual (paleta tinta/latón, Fraunces + IBM Plex Mono, componentes) está en 
 - **Reservar el alto** de los contenedores que se rellenan tras un fetch (`aspect-ratio` en CSS, patrón `#shape` de geojuegos) para que la página no salte al llegar los datos.
 - **Datos pesados de arranque**: si un JSON grande se pide nada más cargar, anunciarlo en el `<head>` fuente con `<link rel="preload" href="data/x.json" as="fetch" crossorigin>` (el `crossorigin` es imprescindible para que el preload case con `fetch()`), y simplificar la geometría en el pipeline hasta lo que la vista realmente resuelve.
 - **Accesibilidad mínima**: `aria-live="polite"` en los mensajes de resultado y **fuera** de contenedores `hidden` (no anuncia desde dentro); `aria-pressed` en botones toggle, incluido el estado inicial en el HTML; `role="status"` en toasts; gestionar el foco al ocultar el formulario (`againBtn.focus()`); nunca `outline: none` sin indicador de foco alternativo visible; `@media (prefers-reduced-motion: reduce)` si hay animaciones.
-- **Táctil**: si hay pan/zoom propio, no secuestrar el scroll de página (`touch-action: pan-y` + panear solo con dos dedos en táctil; zoom de rueda solo con Ctrl/Cmd en escritorio) y ofrecer pinza de dos punteros.
+- **Táctil**: si hay pan/zoom propio, no secuestrar el scroll de página (`touch-action: pan-y` + panear solo con dos dedos en táctil; rueda directa para zoom en escritorio — decisión del dueño tras probar Ctrl+rueda) y ofrecer pinza de dos punteros.
 - **Debug solo en dev**: exponer estado en `window.__*` únicamente tras `if (import.meta.env.DEV)`.
 
 ## Checklist final de publicación

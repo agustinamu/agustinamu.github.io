@@ -236,7 +236,7 @@ Asignados: 🛠️ portal · 🎯 hub Geojuegos · 🗺️ Siluetas · 🧭 Viaj
 - `<em>`/`<strong>` solo con intención semántica; decoración con clases.
 
 **Táctil y movimiento.**
-- Mapas con pan/zoom propio: `touch-action: pan-y` (no `none`, no `pinch-zoom`: un dedo hace scroll de página, la pinza llega a la app), pan de un dedo solo con ratón, zoom de rueda solo con Ctrl/Cmd cuando el mapa convive con una página que hace scroll.
+- Mapas con pan/zoom propio: `touch-action: pan-y` (no `none`, no `pinch-zoom`: un dedo hace scroll de página, la pinza llega a la app), pan de un dedo solo con ratón, rueda directa para zoom (decisión del dueño tras probar la variante Ctrl+rueda: prefiere zoom inmediato aunque el scroll de página se detenga sobre el mapa).
 - Objetivos táctiles de acciones frecuentes ≥ ~44px de lado (los paddings de botón actuales lo cumplen; no reducirlos).
 - Toda animación decorativa (destapes, confeti, ondeo) dentro de `@media (prefers-reduced-motion: no-preference)` o anulada en `reduce`, dejando el estado final correcto.
 
