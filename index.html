@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
     <style>
+      /* Paleta canónica del portal (docs/guia-estilo.md §2): flagmaps y geojuegos la replican. */
       :root {
         --ink: #0b131c;
         --ink-2: #101b27;
@@ -32,10 +33,13 @@
         background: radial-gradient(ellipse at 50% -20%, rgba(210, 161, 76, 0.08), transparent 60%), var(--ink);
         color: var(--paper);
         font-family: 'IBM Plex Mono', monospace;
+        padding: 4rem 1.5rem 3rem;
+      }
+      main {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 4rem 1.5rem 3rem;
+        width: 100%;
       }
       h1 {
         margin: 0;
@@ -44,7 +48,7 @@
         font-size: 2.6rem;
         letter-spacing: 0.02em;
       }
-      h1 em {
+      h1 .accent {
         font-style: italic;
         font-weight: 300;
         color: var(--brass);
@@ -66,7 +70,7 @@
         flex-direction: column;
         gap: 1rem;
       }
-      a.tool {
+      a.card {
         display: block;
         padding: 1.1rem 1.3rem;
         background: var(--ink-2);
@@ -75,19 +79,20 @@
         text-decoration: none;
         transition: border-color 0.15s, background 0.15s;
       }
-      a.tool:hover {
+      a.card:hover,
+      a.card:focus-visible {
         border-color: var(--brass);
         background: rgba(210, 161, 76, 0.08);
       }
-      a.tool .name {
+      a.card .name {
         font-family: 'Fraunces', Georgia, serif;
         font-size: 1.25rem;
         color: var(--brass);
       }
-      a.tool .desc {
+      a.card .desc {
         display: block;
         margin-top: 0.35rem;
-        font-size: 0.74rem;
+        font-size: 0.85rem;
         letter-spacing: 0.04em;
         color: var(--paper-dim);
       }
@@ -99,7 +104,7 @@
         font-weight: 400;
         font-style: italic;
         font-size: 1.05rem;
-        color: var(--brass-soft);
+        color: #9d804a;
       }
       h2:first-of-type {
         margin-top: 0;
@@ -107,26 +112,28 @@
     </style>
   </head>
   <body>
-    <h1>Ekain <em>·</em> Juegos <em>y</em> utilidades</h1>
-    <p class="sub">— ekain.amutxastegi.com —</p>
-    <h2>Juegos</h2>
-    <ul>
-      <li>
-        <a class="tool" href="/geojuegos/">
-          <span class="name">Geojuegos</span>
-          <span class="desc">Adivina países: por su silueta con pistas de distancia y dirección, y más juegos en camino.</span>
-        </a>
-      </li>
-    </ul>
-    <h2>Utilidades</h2>
-    <ul>
-      <li>
-        <a class="tool" href="/flagmaps/">
-          <span class="name">Atlas de Banderas</span>
-          <span class="desc">Mapa interactivo: pinta países con su bandera y compara superficie, población y densidad.</span>
-        </a>
-      </li>
-      <!-- Nuevas entradas: añadir un <li> como el de arriba en su sección. -->
-    </ul>
+    <main>
+      <h1>Ekain <span class="accent">·</span> Juegos <span class="accent">y</span> utilidades</h1>
+      <p class="sub">— ekain.amutxastegi.com —</p>
+      <h2>Juegos</h2>
+      <ul>
+        <li>
+          <a class="card" href="/geojuegos/">
+            <span class="name">Geojuegos</span>
+            <span class="desc">Adivina países por su silueta, su bandera o viajando de país en país.</span>
+          </a>
+        </li>
+      </ul>
+      <h2>Utilidades</h2>
+      <ul>
+        <li>
+          <a class="card" href="/flagmaps/">
+            <span class="name">Atlas de Banderas</span>
+            <span class="desc">Mapa interactivo: pinta países con su bandera y compara superficie, población y densidad.</span>
+          </a>
+        </li>
+        <!-- Nuevas entradas: añadir un <li> como el de arriba en su sección. -->
+      </ul>
+    </main>
   </body>
 </html>
