@@ -136,62 +136,47 @@ export default defineConfig({
 
 **Gotcha**: si se olvida registrar una página, el build la omite **en silencio** — funciona en `npm run dev` y 404ea en producción. Es el primer punto a revisar cuando una página nueva no se despliega.
 
-### 4. deploy.yml canónico
+### 4. Workflows y Dependabot canónicos
 
-Copiar literal `.github/workflows/deploy.yml` (idéntico hoy en geojuegos y flagmaps; es el canónico para herramientas — el del portal es distinto porque no tiene build):
+Copiar literal de **flagmaps** (referencia viva; geojuegos y orbitas son idénticos en lo común):
 
-```yaml
-name: Deploy a GitHub Pages
+- `.github/workflows/deploy.yml` — build + deploy a Pages, `dependency-review` en PRs.
+- `.github/workflows/dependabot-automerge.yml` — auto-merge de minor/patch.
+- `.github/dependabot.yml` — npm semanal (grupos `dependencias` y `seguridad`) + github-actions, con cooldown.
+- `.npmrc` — `min-release-age=7`.
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+No se copia aquí el YAML a propósito: las acciones van fijadas por SHA y Dependabot las actualiza en los repos, así que cualquier copia en esta guía queda desfasada. El del portal es distinto porque no tiene build.
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+Decisiones que el `deploy.yml` debe conservar (cada una corrige un fallo real, octubre 2026):
 
-concurrency:
-  group: pages
-  cancel-in-progress: true
+- **`concurrency` solo en el job `deploy`, con `cancel-in-progress: false`.** Un grupo único a nivel de workflow hacía que la comprobación de un PR cancelara la de otro, o un despliegue de main en curso.
+- **Permisos mínimos:** arriba solo `contents: read`; `pages: write` e `id-token: write` en el job `deploy` (los permisos de un job sustituyen a los del workflow, no se suman). Así los PRs no reciben escritura en Pages.
+- **`npm audit --omit=dev`** solo si el repo tiene dependencias de producción; sin ellas no audita nada (orbitas audita todo).
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/upload-pages-artifact@v5
-        with:
-          path: dist
+Y el auto-merge:
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v5
-```
+- **En PRs agrupados `update-type` llega `null`**: la condición debe incluir `steps.meta.outputs.dependency-group == 'dependencias'` (el grupo limitado a minor/patch). Nunca `seguridad`, que admite majors.
+- **Lo que fusiona Dependabot con `GITHUB_TOKEN` no lanza `deploy.yml`**: se despliega a mano cuando interese (`gh workflow run deploy.yml --ref main`). Decisión del dueño: sin cron ni PAT.
 
 Notas:
 
 - `npm ci` exige `package-lock.json` commiteado.
 - El CI solo ejecuta `npm run build`: **nunca** debe necesitar los scripts de preprocesado ni sus dependencias (ver Datos).
-- Dependabot es opcional; si se quiere, copiar `.github/dependabot.yml` de geojuegos (npm semanal agrupando minor/patch + github-actions semanal). En el portal se eliminó porque sin `package.json` fallaba cada semana — en un repo con npm sí funciona.
 
 ### 5. Activar GitHub Pages
 
-En github.com → repo → Settings → Pages → **Source: GitHub Actions**. Nada más: ni rama `gh-pages`, ni custom domain. Tras el primer push a main, verificar que el workflow acaba en verde y que `https://ekain.amutxastegi.com/<herramienta>/` responde.
+En github.com → repo → Settings → Pages → **Source: GitHub Actions**. Nada más: ni rama `gh-pages`, ni custom domain. Por CLI: `gh api -X POST repos/agustinamu/<herramienta>/pages -f build_type=workflow`.
+
+Ajustes del repo que necesita el auto-merge (sin ellos Dependabot fusiona aunque el build falle o `dependency-review` falla siempre):
+
+```bash
+R=agustinamu/<herramienta>
+gh api -X PATCH repos/$R -F allow_auto_merge=true
+gh api -X PUT repos/$R/vulnerability-alerts          # activa también el grafo de dependencias
+gh api -X PUT repos/$R/automated-security-fixes
+echo '{"required_status_checks":{"strict":false,"contexts":["build"]},"enforce_admins":false,"required_pull_request_reviews":null,"restrictions":null}' \
+  | gh api -X PUT repos/$R/branches/main/protection --input -
+``` Tras el primer push a main, verificar que el workflow acaba en verde y que `https://ekain.amutxastegi.com/<herramienta>/` responde.
 
 ### 6. Enlazarla desde el portal
 
