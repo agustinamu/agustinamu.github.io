@@ -203,6 +203,9 @@ Regla del portal: **lo que se sirve se versiona; lo que se descarga para generar
 - `data/cache/` — descargas crudas de fuentes externas (Natural Earth, Banco Mundial…). En `.gitignore`; los scripts la reutilizan para no re-descargar.
 - `scripts/*.mjs` — generan `public/` desde `data/cache/`. Se ejecutan a mano, en local, cuando cambian los datos. Convención de nombres: `build:<dato>` en los scripts de npm (`build:shapes`, `build:maps`, `build:stats`…) y `sync:<origen>` para copiar de repos hermanos.
 - Si el tooling pesa (mapshaper, sharp), va en un `scripts/package.json` propio (`<herramienta>-tools`, ver geojuegos) para que el `npm ci` del CI no lo instale.
+  - Copiar también `.npmrc` a `scripts/`: es otro proyecto npm y el de la raíz (`min-release-age`) no le llega.
+  - En `dependabot.yml`, `directories: ["/", "/scripts"]`; con `directory: /` Dependabot no vigila el tooling.
+  - Instalar con `npm --prefix scripts install` (documentarlo en el README).
 - Las banderas SVG no se duplican a mano: se copian del repo hermano con un script tipo `sync-data.mjs` (geojuegos las toma de `../flagmaps`). Si la herramienta muestra banderas en miniatura, generar thumbs WebP (patrón `build-flag-thumbs.mjs`, ~2,7 KB frente a SVGs de hasta 244 KB).
 - Documentar en el README de la herramienta la procedencia de cada dato y el comando que lo regenera (ver `geojuegos/README.md` como modelo, incluido el gotcha del winding `gj2008` para d3-geo).
 
